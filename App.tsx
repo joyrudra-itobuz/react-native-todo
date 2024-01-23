@@ -6,20 +6,26 @@
  */
 
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-
-const styles = StyleSheet.create({
-  viewStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+import {Text, View} from 'react-native';
+import PoppinsText from './components/global/text/Poppins';
+import SignInSignUpLayout from './components/layouts/signInSignUpLayout/SignInSignUpLayout';
 
 export default function App() {
   return (
-    <View style={styles.viewStyle}>
-      <Text>Editing You! 🎉</Text>
+    <View>
+      <PoppinsText
+        style={{
+          color: '#000000',
+        }}>
+        Okay SO?
+      </PoppinsText>
+      <Text
+        style={{
+          color: '#000000',
+        }}>
+        Okay SO?
+      </Text>
+      <SignInSignUpLayout />
     </View>
   );
 }
