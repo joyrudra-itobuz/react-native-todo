@@ -1,31 +1,25 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import {View, Text} from 'react-native';
 import React from 'react';
-import {Text, View} from 'react-native';
-import PoppinsText from './components/global/text/Poppins';
-import SignInSignUpLayout from './components/layouts/signInSignUpLayout/SignInSignUpLayout';
+import SignInUpLayout from './src/components/global/Layouts/SignInUpLayout';
+import SoraText from './src/components/global/text/SoraText';
+import textStyles from './src/styles/text';
+import InterText from './src/components/global/text/InterText';
 
 export default function App() {
   return (
     <View>
-      <PoppinsText
-        style={{
-          color: '#000000',
-        }}>
-        Okay SO?
-      </PoppinsText>
-      <Text
-        style={{
-          color: '#000000',
-        }}>
-        Okay SO?
-      </Text>
-      <SignInSignUpLayout />
+      <SignInUpLayout>
+        <View>
+          <SoraText style={[textStyles.textWhite, textStyles.text40]}>
+            Some Layout
+          </SoraText>
+          <View>
+            <InterText style={[textStyles.textWhite, textStyles.text20]}>
+              Add Something More!
+            </InterText>
+          </View>
+        </View>
+      </SignInUpLayout>
     </View>
   );
 }
