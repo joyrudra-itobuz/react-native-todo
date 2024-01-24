@@ -18,5 +18,6 @@ export default function SoraText({
 const styles = StyleSheet.create({
   customText: {
     fontFamily: 'Sora-Regular',
+    color: 'white',
   },
 });

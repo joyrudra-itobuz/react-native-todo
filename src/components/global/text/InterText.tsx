@@ -18,5 +18,6 @@ export default function InterText({
 const styles = StyleSheet.create({
   customText: {
     fontFamily: 'Inter-Regular',
+    color: 'white',
   },
 });

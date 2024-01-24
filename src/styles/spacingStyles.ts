@@ -1,6 +1,10 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  bgDark: {backgroundColor: '#111'},
-  bgBlack: {backgroundColor: '#000000'},
+  p20: {
+    padding: 20,
+  },
+  m20: {
+    padding: 20,
+  },
 });
