@@ -2,9 +2,8 @@ import {View} from 'react-native';
 import React from 'react';
 import SignInUpLayout from './src/components/global/Layouts/SignInUpLayout';
 import SoraText from './src/components/global/text/SoraText';
-import textStyles from './src/styles/text';
-import InterText from './src/components/global/text/InterText';
-import bgStyles from './src/styles/backgrounds';
+import textStyles from './src/styles/textStyles';
+import bgStyles from './src/styles/bgStyles';
 
 export default function App() {
   return (

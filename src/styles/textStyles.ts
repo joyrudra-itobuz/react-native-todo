@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-const textStyles = StyleSheet.create({
+export default StyleSheet.create({
   textWhite: {
     color: '#ffffff',
   },
@@ -15,5 +15,3 @@ const textStyles = StyleSheet.create({
     fontFamily: 'Inter-Regular',
   },
 });
-
-export default textStyles;
