@@ -1,10 +1,11 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Touchable, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import SoraText from '../../global/text/SoraText';
 import textStyles from '../../../styles/textStyles';
 import layoutStyles from '../../../styles/layoutStyles';
 import InputRounded from '../../global/Inputs/InputRounded';
 import spacingStyles from '../../../styles/spacingStyles';
+import RoundedButton from '../../global/ButtonsLinks/RoundedButton';
 
 export default function SignInForm() {
   return (
@@ -18,6 +19,9 @@ export default function SignInForm() {
       <View style={[styles.mt24, styles.inputContainer]}>
         <InputRounded label="Mobile Number" />
         <InputRounded label="Password" />
+        <TouchableOpacity>
+          <RoundedButton>Some</RoundedButton>
+        </TouchableOpacity>
       </View>
     </View>
   );

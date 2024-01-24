@@ -1,8 +1,14 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+  textCenter: {
+    textAlign: 'center',
+  },
   textWhite: {
     color: '#ffffff',
+  },
+  textBlack: {
+    color: '#000',
   },
   textGray: {
     color: '#808080',
@@ -25,5 +31,11 @@ export default StyleSheet.create({
   },
   fontSora: {
     fontFamily: 'Sora-Regular',
+  },
+  fontSoraBold: {
+    fontFamily: 'Sora-Bold',
+  },
+  fontSoraSemiBold: {
+    fontFamily: 'Sora-SemiBold',
   },
 });
