@@ -7,12 +7,12 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#212121',
+    backgroundColor: '#111;',
   },
 });
 
 export default function SignInUpLayout({
   children,
 }: Readonly<{children: React.ReactNode}>) {
-  return <View style={styles.layoutContainer}>{children}</View>;
+  return <View style={[styles.layoutContainer]}>{children}</View>;
 }

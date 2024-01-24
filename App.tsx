@@ -4,20 +4,16 @@ import SignInUpLayout from './src/components/global/Layouts/SignInUpLayout';
 import SoraText from './src/components/global/text/SoraText';
 import textStyles from './src/styles/text';
 import InterText from './src/components/global/text/InterText';
+import bgStyles from './src/styles/backgrounds';
 
 export default function App() {
   return (
     <View>
       <SignInUpLayout>
-        <View>
+        <View style={bgStyles.bgDark}>
           <SoraText style={[textStyles.textWhite, textStyles.text40]}>
-            Some Layout
+            This is Nothing!
           </SoraText>
-          <View>
-            <InterText style={[textStyles.textWhite, textStyles.text20]}>
-              Add Something More!
-            </InterText>
-          </View>
         </View>
       </SignInUpLayout>
     </View>
