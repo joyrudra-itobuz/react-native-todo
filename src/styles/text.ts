@@ -11,6 +11,9 @@ const textStyles = StyleSheet.create({
   text20: {
     fontSize: 20,
   },
+  fontInter: {
+    fontFamily: 'Inter-Regular',
+  },
 });
 
 export default textStyles;
