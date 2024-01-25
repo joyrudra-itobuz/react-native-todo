@@ -1,12 +1,13 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {ReactNode} from 'react';
 import textStyles from '../../../styles/textStyles';
+import bgStyles from '../../../styles/bgStyles';
 
 export default function RoundedButton({
   children,
 }: Readonly<{children: ReactNode}>) {
   return (
-    <View style={style.container}>
+    <View style={[style.container, bgStyles.bgNeonGreen]}>
       <Text
         style={[
           textStyles.textCenter,
@@ -21,10 +22,7 @@ export default function RoundedButton({
 
 const style = StyleSheet.create({
   container: {
-    borderColor: 'white',
-    borderWidth: 2,
     padding: 16,
     borderRadius: 24,
-    backgroundColor: 'white',
   },
 });

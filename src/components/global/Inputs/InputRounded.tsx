@@ -1,28 +1,49 @@
-import {StyleSheet, TextInput, View} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet, TextInput, TextInputProps, View} from 'react-native';
+import React, {useRef, useState} from 'react';
 import textStyles from '../../../styles/textStyles';
 import InterText from '../text/InterText';
+import {useController, useFormContext} from 'react-hook-form';
 
-export default function InputRounded({label}: Readonly<{label: string}>) {
+type Props = TextInputProps & {
+  label: string;
+  name: string;
+};
+
+export default function InputRounded({label, name, ...inputProps}: Props) {
   const [isFocussed, setIsFocussed] = useState(false);
+  const inputRef = useRef<TextInput | null>(null);
+  const [text, setText] = useState('');
+
+  const {register, control} = useFormContext();
+  const {fieldState} = useController({
+    control,
+    name: inputProps.id ?? '',
+  });
 
   return (
     <View style={styles.container}>
       <TextInput
+        {...inputProps}
+        {...register(inputProps.id ?? '')}
+        ref={inputRef}
+        id={name}
         onFocus={() => setIsFocussed(true)}
         onBlur={() => setIsFocussed(false)}
+        onChangeText={e => setText(e)}
         style={[styles.input, textStyles.fontInter]}
-        // placeholder="Mobile Number"
-        // placeholderTextColor={'gray'}
       />
       <InterText
         style={[
           styles.labeDefault,
           textStyles.textGray,
           isFocussed ? styles.labelFocus : styles.labelBlur,
+          text.length && !isFocussed ? styles.hidden : null,
         ]}>
         {label}
       </InterText>
+      {fieldState.error?.message && (
+        <InterText>{fieldState.error?.message}</InterText>
+      )}
     </View>
   );
 }
@@ -53,5 +74,8 @@ const styles = StyleSheet.create({
   },
   labelFocus: {
     transform: [{translateY: -30}],
+  },
+  hidden: {
+    display: 'none',
   },
 });
