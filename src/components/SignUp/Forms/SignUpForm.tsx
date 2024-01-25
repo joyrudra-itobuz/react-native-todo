@@ -7,22 +7,22 @@ import InputRounded from '../../global/Inputs/InputRounded';
 import spacingStyles from '../../../styles/spacingStyles';
 import RoundedButton from '../../global/ButtonsLinks/RoundedButton';
 import {FormProvider, useForm} from 'react-hook-form';
-import {SignIn} from '../../../types/globalTypes';
+import {SignUp} from '../../../types/globalTypes';
 import {yupResolver} from '@hookform/resolvers/yup';
-import {signInValidationSchema} from '../../../validators/userValidators';
+import {signUpValidationSchema} from '../../../validators/userValidators';
 import {useNavigation} from '@react-navigation/native';
 
-export default function SignInForm() {
-  const form = useForm<SignIn>({
-    resolver: yupResolver(signInValidationSchema),
+export default function SignUpForm() {
+  const form = useForm<SignUp>({
+    resolver: yupResolver(signUpValidationSchema),
   });
 
-  function onSubmit(formValues: SignIn) {
+  const navigation = useNavigation();
+
+  function onSubmit(formValues: SignUp) {
     console.log('Called!');
     console.log(formValues);
   }
-
-  const navigation = useNavigation();
 
   return (
     <FormProvider {...form}>
@@ -40,6 +40,7 @@ export default function SignInForm() {
             keyboardType="number-pad"
           />
           <InputRounded label="Password" name="password" />
+          <InputRounded label="Password" name="confirmPassword" />
 
           <TouchableOpacity onPress={form.handleSubmit(onSubmit)}>
             <RoundedButton>Submit</RoundedButton>
@@ -47,11 +48,11 @@ export default function SignInForm() {
         </View>
       </View>
       <View style={styles.redirect}>
-        <SoraText>Don't have an account?</SoraText>
+        <SoraText>Already have an account?</SoraText>
         <Button
-          title="Sign Up"
+          title="Sign In"
           color={'black'}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => navigation.navigate('SignIn')}
         />
       </View>
     </FormProvider>

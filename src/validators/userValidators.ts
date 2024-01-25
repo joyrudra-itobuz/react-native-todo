@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const emailValidationSchema = yup.object({
+export const phoneNumberValidationSchema = yup.object({
   phoneNumber: yup
     .string()
     .trim()
@@ -11,4 +11,11 @@ export const signInValidationSchema = yup
   .object({
     password: yup.string().required('Please enter your password.'),
   })
-  .concat(emailValidationSchema);
+  .concat(phoneNumberValidationSchema);
+
+export const signUpValidationSchema = yup
+  .object({
+    password: yup.string().required('Please enter your Password.'),
+    confirmPassword: yup.string().required('Please Re-Type the Password.'),
+  })
+  .concat(phoneNumberValidationSchema);

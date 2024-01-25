@@ -1,11 +1,11 @@
 import React from 'react';
 import SignInUpLayout from '../../components/global/Layouts/SignInUpLayout';
-import SignInForm from '../../components/SignIn/Form/SignInForm';
+import SignUpForm from '../../components/SignUp/Forms/SignUpForm';
 
-export default function SignIn() {
+export default function SignUP() {
   return (
     <SignInUpLayout>
-      <SignInForm />
+      <SignUpForm />
     </SignInUpLayout>
   );
 }

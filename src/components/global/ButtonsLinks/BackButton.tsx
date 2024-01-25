@@ -1,10 +1,21 @@
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import BackLogo from '../../../../assets/images/icons/backLogo';
+import {useNavigation} from '@react-navigation/native';
 
-export default function BackButton() {
+export default function BackButton({
+  location,
+}: {
+  location?: string | undefined;
+}) {
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity style={[style.buttonStyle]}>
+    <TouchableOpacity
+      style={[style.buttonStyle]}
+      onPress={() => {
+        location ? navigation.navigate(location) : navigation.goBack();
+      }}>
       <BackLogo />
     </TouchableOpacity>
   );
