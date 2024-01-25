@@ -3,6 +3,7 @@ import React, {useRef, useState} from 'react';
 import textStyles from '../../../styles/textStyles';
 import InterText from '../text/InterText';
 import {useController, useFormContext} from 'react-hook-form';
+import bgStyles from '../../../styles/bgStyles';
 
 type Props = TextInputProps & {
   label: string;
@@ -10,39 +11,44 @@ type Props = TextInputProps & {
 };
 
 export default function InputRounded({label, name, ...inputProps}: Props) {
-  const [isFocussed, setIsFocussed] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<TextInput | null>(null);
-  const [text, setText] = useState('');
-
   const {register, control} = useFormContext();
-  const {fieldState} = useController({
+  const {field, fieldState} = useController({
     control,
-    name: inputProps.id ?? '',
+    name,
   });
 
+  const text = field.value;
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        fieldState.error ? bgStyles.borderRed : bgStyles.borderWhite,
+      ]}>
       <TextInput
         {...inputProps}
-        {...register(inputProps.id ?? '')}
+        {...register(name)}
         ref={inputRef}
-        id={name}
-        onFocus={() => setIsFocussed(true)}
-        onBlur={() => setIsFocussed(false)}
-        onChangeText={e => setText(e)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        onChangeText={value => field.onChange(value)}
         style={[styles.input, textStyles.fontInter]}
       />
       <InterText
         style={[
-          styles.labeDefault,
-          textStyles.textGray,
-          isFocussed ? styles.labelFocus : styles.labelBlur,
-          text.length && !isFocussed ? styles.hidden : null,
+          styles.labelDefault,
+          fieldState.error ? textStyles.textRed : textStyles.textGray,
+          isFocused ? styles.labelFocus : styles.labelBlur,
+          text ? styles.hidden : null,
         ]}>
         {label}
       </InterText>
       {fieldState.error?.message && (
-        <InterText>{fieldState.error?.message}</InterText>
+        <InterText style={styles.errorText}>
+          {fieldState.error.message}
+        </InterText>
       )}
     </View>
   );
@@ -51,10 +57,7 @@ export default function InputRounded({label, name, ...inputProps}: Props) {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 20,
-    borderWidth: 2,
     padding: 16,
-    borderStyle: 'solid',
-    borderColor: 'white',
     width: '100%',
     position: 'relative',
   },
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     color: 'white',
     padding: -16,
   },
-  labeDefault: {
+  labelDefault: {
     position: 'absolute',
     top: '50%',
     left: 16,
@@ -77,5 +80,11 @@ const styles = StyleSheet.create({
   },
   hidden: {
     display: 'none',
+  },
+  errorText: {
+    color: '#EF4444',
+    position: 'absolute',
+    bottom: -25,
+    left: 15,
   },
 });

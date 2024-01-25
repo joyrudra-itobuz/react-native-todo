@@ -1,4 +1,4 @@
-import {Button, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import SoraText from '../../global/text/SoraText';
 import textStyles from '../../../styles/textStyles';
@@ -16,6 +16,11 @@ export default function SignInForm() {
     resolver: yupResolver(signInValidationSchema),
   });
 
+  function onSubmit(formValues: SignIn) {
+    console.log('Called!');
+    console.log(formValues);
+  }
+
   return (
     <FormProvider {...form}>
       <View>
@@ -26,11 +31,15 @@ export default function SignInForm() {
           </SoraText>
         </View>
         <View style={[styles.mt24, styles.inputContainer]}>
-          <InputRounded label="Mobile Number" name="mobileNumber" />
+          <InputRounded
+            label="Phone Number"
+            name="phoneNumber"
+            keyboardType="number-pad"
+          />
           <InputRounded label="Password" name="password" />
 
-          <TouchableOpacity>
-            <RoundedButton>Some</RoundedButton>
+          <TouchableOpacity onPress={form.handleSubmit(onSubmit)}>
+            <RoundedButton>Submit</RoundedButton>
           </TouchableOpacity>
         </View>
       </View>
@@ -51,6 +60,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 24,
+    gap: 32,
   },
 });

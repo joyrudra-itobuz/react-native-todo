@@ -10,6 +10,9 @@ export default StyleSheet.create({
   textBlack: {
     color: '#000',
   },
+  textRed: {
+    color: '#EF4444',
+  },
   textGray: {
     color: '#808080',
   },
