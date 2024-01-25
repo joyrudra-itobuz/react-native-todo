@@ -5,3 +5,8 @@ export type SignIn = {
 export type SignUp = SignIn & {
   confirmPassword: string;
 };
+
+export type ApiResponse = {
+  success: boolean;
+  message?: string;
+};

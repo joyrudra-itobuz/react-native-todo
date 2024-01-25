@@ -7,13 +7,15 @@ import InputRounded from '../../global/Inputs/InputRounded';
 import spacingStyles from '../../../styles/spacingStyles';
 import RoundedButton from '../../global/ButtonsLinks/RoundedButton';
 import {FormProvider, useForm} from 'react-hook-form';
-import {SignUp} from '../../../types/globalTypes';
+import {ApiResponse, SignUp} from '../../../types/globalTypes';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {signUpValidationSchema} from '../../../validators/userValidators';
 import {useNavigation} from '@react-navigation/native';
 import GoogleIcon from '../../../../assets/images/icons/googleLogo';
 import AppleIcon from '../../../../assets/images/icons/appleLogo';
 import bgStyles from '../../../styles/bgStyles';
+import {REGISTER_USER_MUTATION} from '../../../graphql/auth/auth.graphql';
+import {useMutation} from '@apollo/client';
 
 export default function SignUpForm() {
   const form = useForm<SignUp>({
@@ -22,10 +24,25 @@ export default function SignUpForm() {
 
   const navigation = useNavigation();
 
-  function onSubmit(formValues: SignUp) {
-    console.log('Called!');
-    console.log(formValues);
-  }
+  const [registerUser, {loading}] = useMutation(REGISTER_USER_MUTATION, {
+    onCompleted: ({register}: {register: ApiResponse}) => {
+      if (register.success) {
+        console.log(register);
+        navigation.navigate('SignIn');
+      } else {
+      }
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  const onSubmit = (formValue: SignUp) => {
+    console.log(formValue);
+    registerUser({variables: formValue});
+  };
+
+  const onInvalid = e => console.log(e);
 
   return (
     <FormProvider {...form}>
@@ -39,11 +56,11 @@ export default function SignUpForm() {
           </SoraText>
         </View>
         <View style={[spacingStyles.mt24, styles.inputContainer]}>
-          <InputRounded label="Phone Number" name="phoneNumber" />
+          <InputRounded label="Email" name="email" />
           <InputRounded label="Password" name="password" />
           <InputRounded label="Password" name="confirmPassword" />
 
-          <TouchableOpacity onPress={form.handleSubmit(onSubmit)}>
+          <TouchableOpacity onPress={form.handleSubmit(onSubmit, onInvalid)}>
             <RoundedButton>Submit</RoundedButton>
           </TouchableOpacity>
         </View>
