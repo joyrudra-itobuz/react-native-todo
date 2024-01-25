@@ -13,4 +13,15 @@ export default StyleSheet.create({
   heightFull: {
     height: '100%',
   },
+  flexRow: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  flexCol: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  justifyBetween: {
+    justifyContent: 'space-between',
+  },
 });

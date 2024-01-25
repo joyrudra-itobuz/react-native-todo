@@ -28,7 +28,9 @@ export default function SignInForm() {
     <FormProvider {...form}>
       <View style={layoutStyles.widthFull}>
         <View style={[layoutStyles.flexCenter, spacingStyles.p20]}>
-          <SoraText style={textStyles.text24}>Welcome Back</SoraText>
+          <SoraText style={[textStyles.text24, textStyles.fontSoraBold]}>
+            Welcome Back
+          </SoraText>
           <SoraText style={[textStyles.text14, textStyles.textGray]}>
             Enter your Details Below
           </SoraText>
@@ -46,6 +48,7 @@ export default function SignInForm() {
           </TouchableOpacity>
         </View>
       </View>
+
       <View style={styles.redirect}>
         <SoraText>Don't have an account?</SoraText>
         <Button

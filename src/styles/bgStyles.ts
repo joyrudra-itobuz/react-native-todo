@@ -4,8 +4,18 @@ export default StyleSheet.create({
   bgDark: {backgroundColor: '#111'},
   bgBlack: {backgroundColor: '#000000'},
   bgNeonGreen: {backgroundColor: '#D7FC70'},
+  b1: {
+    borderWidth: 1,
+  },
+  b2: {
+    borderWidth: 2,
+  },
   borderWhite: {
     borderWidth: 2,
+    borderStyle: 'solid',
+    borderColor: 'white',
+  },
+  borderGray: {
     borderStyle: 'solid',
     borderColor: 'white',
   },
@@ -13,5 +23,17 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderStyle: 'solid',
     borderColor: '#EF4444',
+  },
+  roundedSm: {
+    borderRadius: 10,
+  },
+  roundedLg: {
+    borderRadius: 16,
+  },
+  roundedXl: {
+    borderRadius: 32,
+  },
+  roundedFull: {
+    borderRadius: 99999999999,
   },
 });

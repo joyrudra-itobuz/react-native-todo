@@ -11,6 +11,9 @@ import {SignUp} from '../../../types/globalTypes';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {signUpValidationSchema} from '../../../validators/userValidators';
 import {useNavigation} from '@react-navigation/native';
+import GoogleIcon from '../../../../assets/images/icons/googleLogo';
+import AppleIcon from '../../../../assets/images/icons/appleLogo';
+import bgStyles from '../../../styles/bgStyles';
 
 export default function SignUpForm() {
   const form = useForm<SignUp>({
@@ -28,12 +31,14 @@ export default function SignUpForm() {
     <FormProvider {...form}>
       <View style={layoutStyles.widthFull}>
         <View style={[layoutStyles.flexCenter, spacingStyles.p20]}>
-          <SoraText style={textStyles.text24}>Welcome Back</SoraText>
+          <SoraText style={[textStyles.text24, textStyles.fontSoraBold]}>
+            Get Started
+          </SoraText>
           <SoraText style={[textStyles.text14, textStyles.textGray]}>
             Enter your Details Below
           </SoraText>
         </View>
-        <View style={[styles.mt24, styles.inputContainer]}>
+        <View style={[spacingStyles.mt24, styles.inputContainer]}>
           <InputRounded
             label="Phone Number"
             name="phoneNumber"
@@ -47,6 +52,43 @@ export default function SignUpForm() {
           </TouchableOpacity>
         </View>
       </View>
+
+      <View style={[layoutStyles.widthFull]}>
+        <View style={[styles.continueWithContainer, layoutStyles.widthFull]}>
+          <View style={styles.dashedLine} />
+          <SoraText>Or continue with</SoraText>
+          <View style={styles.dashedLine} />
+        </View>
+
+        <View
+          style={[
+            layoutStyles.flexRow,
+            layoutStyles.justifyBetween,
+            spacingStyles.pt20,
+          ]}>
+          <TouchableOpacity
+            style={[
+              spacingStyles.p20,
+              spacingStyles.px60,
+              bgStyles.borderGray,
+              bgStyles.b1,
+              bgStyles.roundedLg,
+            ]}>
+            <GoogleIcon />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              spacingStyles.p20,
+              spacingStyles.px60,
+              bgStyles.borderGray,
+              bgStyles.b1,
+              bgStyles.roundedLg,
+            ]}>
+            <AppleIcon />
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <View style={styles.redirect}>
         <SoraText>Already have an account?</SoraText>
         <Button
@@ -63,12 +105,6 @@ const styles = StyleSheet.create({
   bgBlack: {
     backgroundColor: '#000000',
   },
-  mb24: {
-    marginBottom: 24,
-  },
-  mt24: {
-    marginTop: 24,
-  },
   inputContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -78,7 +114,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
     gap: 10,
     alignItems: 'center',
+  },
+  continueWithContainer: {
+    marginTop: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  dashedLine: {
+    height: 1,
+    width: '33%',
+    backgroundColor: '#808080',
   },
 });
