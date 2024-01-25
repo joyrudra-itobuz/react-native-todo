@@ -25,6 +25,9 @@ export default StyleSheet.create({
   pb20: {
     paddingBottom: 20,
   },
+  pb40: {
+    paddingBottom: 40,
+  },
   py20: {
     paddingTop: 20,
     paddingBottom: 20,

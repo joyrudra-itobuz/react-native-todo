@@ -36,11 +36,7 @@ export default function SignInForm() {
           </SoraText>
         </View>
         <View style={[styles.mt24, styles.inputContainer]}>
-          <InputRounded
-            label="Phone Number"
-            name="phoneNumber"
-            keyboardType="number-pad"
-          />
+          <InputRounded label="Email" name="email" />
           <InputRounded label="Password" name="password" />
 
           <TouchableOpacity onPress={form.handleSubmit(onSubmit)}>
@@ -49,7 +45,7 @@ export default function SignInForm() {
         </View>
       </View>
 
-      <View style={styles.redirect}>
+      <View style={[styles.redirect, spacingStyles.pb40]}>
         <SoraText>Don't have an account?</SoraText>
         <Button
           title="Sign Up"

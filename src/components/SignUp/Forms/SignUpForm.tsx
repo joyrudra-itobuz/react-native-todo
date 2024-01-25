@@ -39,11 +39,7 @@ export default function SignUpForm() {
           </SoraText>
         </View>
         <View style={[spacingStyles.mt24, styles.inputContainer]}>
-          <InputRounded
-            label="Phone Number"
-            name="phoneNumber"
-            keyboardType="number-pad"
-          />
+          <InputRounded label="Phone Number" name="phoneNumber" />
           <InputRounded label="Password" name="password" />
           <InputRounded label="Password" name="confirmPassword" />
 

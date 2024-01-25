@@ -41,7 +41,7 @@ export default function InputRounded({label, name, ...inputProps}: Props) {
           styles.labelDefault,
           fieldState.error ? textStyles.textRed : textStyles.textGray,
           isFocused ? styles.labelFocus : styles.labelBlur,
-          text ? styles.hidden : null,
+          text && !isFocused && styles.hidden,
         ]}>
         {label}
       </InterText>
