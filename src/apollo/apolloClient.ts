@@ -9,11 +9,14 @@ import {
 import {onError} from '@apollo/client/link/error';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const graphqlServerURI = 'http://localhost:4040/graphql';
+const graphqlServerURI = 'http://10.0.2.2:4040/graphql';
 
-const httpLink = new HttpLink({
-  uri: graphqlServerURI,
-});
+// Paste This If Not Works
+//  const networkInterface = createNetworkInterface({
+//   uri: `http://10.0.2.2:4040/graphql`,
+// });
+
+const httpLink = new HttpLink({uri: graphqlServerURI});
 
 const errorLink = onError(({graphQLErrors, networkError}) => {
   if (graphQLErrors) {
@@ -25,7 +28,7 @@ const errorLink = onError(({graphQLErrors, networkError}) => {
   }
 
   if (networkError) {
-    console.error(`[Network error]: ${networkError}`);
+    console.error(`[Joy Said error so Error]: ${networkError}`);
   }
 });
 
@@ -35,7 +38,7 @@ const setAuthorizationHeader = async (operation: Operation) => {
     operation.setContext({
       headers: {
         Authorization: token ? `Bearer ${token}` : '',
-        app: 'admin',
+        app: 'app',
       },
     });
   } catch (error) {

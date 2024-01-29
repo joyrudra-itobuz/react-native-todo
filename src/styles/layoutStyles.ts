@@ -24,4 +24,7 @@ export default StyleSheet.create({
   justifyBetween: {
     justifyContent: 'space-between',
   },
+  overflowScroll: {
+    overflow: 'scroll',
+  },
 });

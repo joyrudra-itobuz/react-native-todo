@@ -11,14 +11,8 @@ export const REGISTER_USER_MUTATION = gql`
     $phoneNumber: String!
     $password: String!
     $email: String!
-    $name: String!
   ) {
-    register(
-      phoneNumber: $phoneNumber
-      password: $password
-      email: $email
-      name: $name
-    ) {
+    register(phoneNumber: $phoneNumber, password: $password, email: $email) {
       message
       success
     }

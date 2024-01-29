@@ -22,14 +22,15 @@ export default function SignUpForm() {
     resolver: yupResolver(signUpValidationSchema),
   });
 
-  const navigation = useNavigation();
+  const {navigate} = useNavigation();
 
   const [registerUser, {loading}] = useMutation(REGISTER_USER_MUTATION, {
     onCompleted: ({register}: {register: ApiResponse}) => {
       if (register.success) {
         console.log(register);
-        navigation.navigate('SignIn');
+        navigate('SignIn');
       } else {
+        console.log('Error');
       }
     },
     onError: error => {
@@ -46,8 +47,8 @@ export default function SignUpForm() {
 
   return (
     <FormProvider {...form}>
-      <View style={layoutStyles.widthFull}>
-        <View style={[layoutStyles.flexCenter, spacingStyles.p20]}>
+      <View style={[layoutStyles.widthFull, layoutStyles.overflowScroll]}>
+        <View style={[layoutStyles.flexCenter]}>
           <SoraText style={[textStyles.text24, textStyles.fontSoraBold]}>
             Get Started
           </SoraText>
@@ -57,8 +58,13 @@ export default function SignUpForm() {
         </View>
         <View style={[spacingStyles.mt24, styles.inputContainer]}>
           <InputRounded label="Email" name="email" />
+          <InputRounded
+            label="Phone"
+            name="phoneNumber"
+            keyboardType="number-pad"
+          />
           <InputRounded label="Password" name="password" />
-          <InputRounded label="Password" name="confirmPassword" />
+          <InputRounded label="Confirm Password" name="confirmPassword" />
 
           <TouchableOpacity onPress={form.handleSubmit(onSubmit, onInvalid)}>
             <RoundedButton>Submit</RoundedButton>
@@ -107,7 +113,7 @@ export default function SignUpForm() {
         <Button
           title="Sign In"
           color={'black'}
-          onPress={() => navigation.navigate('SignIn')}
+          onPress={() => navigate('SignIn')}
         />
       </View>
     </FormProvider>
