@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import BrandLogo from '../../../../assets/images/icons/brandLogo';
 import spacingStyles from '../../../styles/spacingStyles';
@@ -18,15 +18,17 @@ export default function SignInUpLayout({
             <BrandLogo />
           </View>
         </View>
-        <View
-          style={[
+        <ScrollView
+          style={{display: 'flex'}}
+          contentContainerStyle={[
             styles.flexLayoutMain,
             bgStyles.bgBlack,
-            layoutStyles.widthFull,
-            spacingStyles.p20,
+            layoutStyles.heightFull,
           ]}>
-          {children}
-        </View>
+          <View style={[layoutStyles.widthFull, spacingStyles.p20]}>
+            {children}
+          </View>
+        </ScrollView>
       </View>
     </View>
   );

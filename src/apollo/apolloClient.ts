@@ -16,7 +16,12 @@ const graphqlServerURI = 'http://10.0.2.2:4040/graphql';
 //   uri: `http://10.0.2.2:4040/graphql`,
 // });
 
-const httpLink = new HttpLink({uri: graphqlServerURI});
+const httpLink = new HttpLink({
+  uri: graphqlServerURI,
+  headers: {
+    app: 'admin',
+  },
+});
 
 const errorLink = onError(({graphQLErrors, networkError}) => {
   if (graphQLErrors) {

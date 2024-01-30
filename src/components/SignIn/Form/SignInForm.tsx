@@ -1,4 +1,11 @@
-import {Button, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Button,
+  StyleSheet,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import SoraText from '../../global/text/SoraText';
 import textStyles from '../../../styles/textStyles';
@@ -7,22 +14,44 @@ import InputRounded from '../../global/Inputs/InputRounded';
 import spacingStyles from '../../../styles/spacingStyles';
 import RoundedButton from '../../global/ButtonsLinks/RoundedButton';
 import {FormProvider, useForm} from 'react-hook-form';
-import {SignIn} from '../../../types/globalTypes';
+import {LoginResponse, SignIn} from '../../../types/globalTypes';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {signInValidationSchema} from '../../../validators/userValidators';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useMutation} from '@apollo/client';
+import {SIGN_IN_USER_MUTATION} from '../../../graphql/auth/auth.graphql';
+import client from '../../../apollo/apolloClient';
 
 export default function SignInForm() {
   const form = useForm<SignIn>({
     resolver: yupResolver(signInValidationSchema),
   });
 
-  function onSubmit(formValues: SignIn) {
-    console.log('Called!');
-    console.log(formValues);
-  }
+  const {navigate} = useNavigation();
 
-  const navigation = useNavigation();
+  const [loginInput, {loading}] = useMutation(SIGN_IN_USER_MUTATION, {
+    onCompleted: ({login}: {login: LoginResponse}) => {
+      if (login.success) {
+        AsyncStorage.setItem('@accessToken', login.data.accessToken);
+        AsyncStorage.setItem('@refreshToken', login.data.refreshToken);
+
+        Alert.alert('MY APP', 'Welcomes You');
+        ToastAndroid.show('Hello User', 300);
+        navigate('Home');
+      } else {
+        console.log('Error');
+      }
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
+
+  function onSubmit(formValues: SignIn) {
+    console.log(formValues);
+    loginInput({variables: formValues});
+  }
 
   return (
     <FormProvider {...form}>
@@ -50,7 +79,7 @@ export default function SignInForm() {
         <Button
           title="Sign Up"
           color={'black'}
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => navigate('SignUp')}
         />
       </View>
     </FormProvider>
@@ -78,5 +107,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });

@@ -47,29 +47,27 @@ export default function SignUpForm() {
 
   return (
     <FormProvider {...form}>
-      <View style={[layoutStyles.widthFull, layoutStyles.overflowScroll]}>
-        <View style={[layoutStyles.flexCenter]}>
-          <SoraText style={[textStyles.text24, textStyles.fontSoraBold]}>
-            Get Started
-          </SoraText>
-          <SoraText style={[textStyles.text14, textStyles.textGray]}>
-            Enter your Details Below
-          </SoraText>
-        </View>
-        <View style={[spacingStyles.mt24, styles.inputContainer]}>
-          <InputRounded label="Email" name="email" />
-          <InputRounded
-            label="Phone"
-            name="phoneNumber"
-            keyboardType="number-pad"
-          />
-          <InputRounded label="Password" name="password" />
-          <InputRounded label="Confirm Password" name="confirmPassword" />
+      <View style={[layoutStyles.flexCenter]}>
+        <SoraText style={[textStyles.text24, textStyles.fontSoraBold]}>
+          Get Started
+        </SoraText>
+        <SoraText style={[textStyles.text14, textStyles.textGray]}>
+          Enter your Details Below
+        </SoraText>
+      </View>
+      <View style={[spacingStyles.mt24, styles.inputContainer]}>
+        <InputRounded label="Email" name="email" />
+        <InputRounded
+          label="Phone"
+          name="phoneNumber"
+          keyboardType="number-pad"
+        />
+        <InputRounded label="Password" name="password" />
+        <InputRounded label="Confirm Password" name="confirmPassword" />
 
-          <TouchableOpacity onPress={form.handleSubmit(onSubmit, onInvalid)}>
-            <RoundedButton>Submit</RoundedButton>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={form.handleSubmit(onSubmit, onInvalid)}>
+          <RoundedButton>Submit</RoundedButton>
+        </TouchableOpacity>
       </View>
 
       <View style={[layoutStyles.widthFull]}>
