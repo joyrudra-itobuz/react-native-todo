@@ -1,6 +1,7 @@
 import * as React from 'react';
-import Svg, {SvgProps, Path} from 'react-native-svg';
-const CreateLogo = (props: SvgProps) => (
+import Svg, {Path} from 'react-native-svg';
+import {CustomSvgProps} from '../../../src/types/globalTypes';
+const CreateLogo = (props: CustomSvgProps) => (
   <Svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +9,7 @@ const CreateLogo = (props: SvgProps) => (
     height={32}
     fill="none">
     <Path
-      stroke="#827D89"
+      stroke={props.hoverColor || '#827D89'}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={3}

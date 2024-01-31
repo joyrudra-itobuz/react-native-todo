@@ -99,8 +99,8 @@ export default function BottomTab() {
         options={{
           ...commonOptions,
           // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: () => {
-            return <HomeLogo />;
+          tabBarIcon: info => {
+            return <HomeLogo hoverColor={info.focused && '#6A3EA1'} />;
           },
         }}
       />
@@ -110,8 +110,8 @@ export default function BottomTab() {
         options={{
           ...commonOptions,
           // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: () => {
-            return <FinishedLogo />;
+          tabBarIcon: info => {
+            return <FinishedLogo hoverColor={info.focused && '#6A3EA1'} />;
           },
         }}
       />
@@ -121,8 +121,8 @@ export default function BottomTab() {
         options={{
           ...commonOptions,
           // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: () => {
-            return <CreateLogo />;
+          tabBarIcon: info => {
+            return <CreateLogo hoverColor={info.focused && '#6A3EA1'} />;
           },
         }}
       />
@@ -132,8 +132,8 @@ export default function BottomTab() {
         options={{
           ...commonOptions,
           // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: () => {
-            return <SearchLogo />;
+          tabBarIcon: info => {
+            return <SearchLogo hoverColor={info.focused && '#6A3EA1'} />;
           },
         }}
       />
@@ -143,8 +143,8 @@ export default function BottomTab() {
         options={{
           ...commonOptions,
           // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: () => {
-            return <SettingsLogo />;
+          tabBarIcon: info => {
+            return <SettingsLogo hoverColor={info.focused && '#6A3EA1'} />;
           },
         }}
       />

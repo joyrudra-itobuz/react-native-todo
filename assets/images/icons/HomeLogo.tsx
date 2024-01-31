@@ -1,12 +1,7 @@
 import * as React from 'react';
-import Svg, {
-  SvgProps,
-  Path,
-  Defs,
-  LinearGradient,
-  Stop,
-} from 'react-native-svg';
-const HomeLogo = (props: SvgProps) => (
+import Svg, {Path, Defs, LinearGradient, Stop} from 'react-native-svg';
+import {CustomSvgProps} from '../../../src/types/globalTypes';
+const HomeLogo = (props: CustomSvgProps) => (
   <Svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +20,8 @@ const HomeLogo = (props: SvgProps) => (
         y1={-6.993}
         y2={35.674}
         gradientUnits="userSpaceOnUse">
-        <Stop stopColor="#9C6ADB" />
-        <Stop offset={1} stopColor="#592F8D" />
+        {/* <Stop stopColor="#9C6ADB" /> */}
+        <Stop offset={1} stopColor={props.hoverColor || '#827D89'} />
       </LinearGradient>
     </Defs>
   </Svg>
