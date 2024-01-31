@@ -5,10 +5,31 @@ import spacingStyles from '../../../styles/spacingStyles';
 import BackButton from '../ButtonsLinks/BackButton';
 import bgStyles from '../../../styles/bgStyles';
 import layoutStyles from '../../../styles/layoutStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
 export default function SignInUpLayout({
   children,
 }: Readonly<{children: React.ReactNode}>) {
+  const {navigate} = useNavigation();
+
+  useFocusEffect(() => {
+    async function checkToken() {
+      return await AsyncStorage.clear();
+
+      const accessToken = await AsyncStorage.getItem('accessToken');
+
+      console.log({accessToken});
+
+      if (accessToken) {
+        navigate('Home' as never);
+      }
+    }
+
+    console.log('unmounts');
+    checkToken();
+  });
+
   return (
     <View style={[layoutStyles.widthFull, bgStyles.bgDark]}>
       <View style={[styles.layoutContainer, layoutStyles.widthFull]}>

@@ -4,6 +4,7 @@ import SignIn from './screens/SignIn/SignIn';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignUP from './screens/SignUp/SignUp';
 import Home from './screens/Home/Home';
+import BottomTab from './Navigation/Tabs/BottomTab';
 
 export default function Navigator() {
   const Stack = createNativeStackNavigator();
@@ -16,6 +17,11 @@ export default function Navigator() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
+          name="Landing"
+          options={commonOptions}
+          component={BottomTab}
+        />
+        <Stack.Screen
           name="SignIn"
           options={commonOptions}
           component={SignIn}
@@ -25,7 +31,6 @@ export default function Navigator() {
           options={commonOptions}
           component={SignUP}
         />
-        <Stack.Screen name="Home" options={commonOptions} component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );

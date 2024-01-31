@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 export default function BackButton({
   location,
 }: Readonly<{
-  location?: string | undefined;
+  location?: string;
 }>) {
   const navigation = useNavigation();
 

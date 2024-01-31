@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   StyleSheet,
+  Text,
   ToastAndroid,
   TouchableOpacity,
   View,
@@ -21,26 +22,29 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useMutation} from '@apollo/client';
 import {SIGN_IN_USER_MUTATION} from '../../../graphql/auth/auth.graphql';
-import client from '../../../apollo/apolloClient';
+import {styled} from 'nativewind';
 
 export default function SignInForm() {
+  const StyledView = styled(View);
+  const StyledText = styled(Text);
+
   const form = useForm<SignIn>({
     resolver: yupResolver(signInValidationSchema),
   });
 
   const {navigate} = useNavigation();
 
-  const [loginInput, {loading}] = useMutation(SIGN_IN_USER_MUTATION, {
+  const [loginInput, {}] = useMutation(SIGN_IN_USER_MUTATION, {
     onCompleted: ({login}: {login: LoginResponse}) => {
       if (login.success) {
         AsyncStorage.setItem('@accessToken', login.data.accessToken);
         AsyncStorage.setItem('@refreshToken', login.data.refreshToken);
 
         Alert.alert('MY APP', 'Welcomes You');
-        ToastAndroid.show('Hello User', 300);
-        navigate('Home');
+        ToastAndroid.show(login.message ?? '', 300);
+        navigate('Home' as never);
       } else {
-        console.log('Error');
+        ToastAndroid.show(login.message ?? '', 300);
       }
     },
     onError(error) {
@@ -55,6 +59,10 @@ export default function SignInForm() {
 
   return (
     <FormProvider {...form}>
+      <StyledView className="text-white">
+        <StyledText className="text-3xl text-blue-200">Hello</StyledText>
+      </StyledView>
+
       <View style={layoutStyles.widthFull}>
         <View style={[layoutStyles.flexCenter, spacingStyles.p20]}>
           <SoraText style={[textStyles.text24, textStyles.fontSoraBold]}>
@@ -79,7 +87,7 @@ export default function SignInForm() {
         <Button
           title="Sign Up"
           color={'black'}
-          onPress={() => navigate('SignUp')}
+          onPress={() => navigate('SignUp' as never)}
         />
       </View>
     </FormProvider>
