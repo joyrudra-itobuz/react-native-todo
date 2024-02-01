@@ -42,7 +42,7 @@ export default function SignInForm() {
 
         Alert.alert('MY APP', 'Welcomes You');
         ToastAndroid.show(login.message ?? '', 300);
-        navigate('Home' as never);
+        navigate('Create' as never);
       } else {
         ToastAndroid.show(login.message ?? '', 300);
       }
