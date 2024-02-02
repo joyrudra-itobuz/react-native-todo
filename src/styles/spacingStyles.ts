@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+  gap16: {gap: 16},
+  gap20: {gap: 20},
+  gap24: {gap: 24},
   p20: {
     padding: 20,
   },

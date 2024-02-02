@@ -2,9 +2,11 @@ import React from 'react';
 import {Dispatch, ReactNode, createContext, useMemo, useState} from 'react';
 
 export type Profile = {
-  _id: string;
   name?: string;
   email: string;
+  profileImage: string;
+  phoneNumber?: string;
+  accessToken: string;
 };
 
 type UserContextType = {

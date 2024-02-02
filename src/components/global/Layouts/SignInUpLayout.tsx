@@ -15,7 +15,7 @@ export default function SignInUpLayout({
 
   useFocusEffect(() => {
     async function checkToken() {
-      return await AsyncStorage.clear();
+      // return await AsyncStorage.clear();
 
       const accessToken = await AsyncStorage.getItem('accessToken');
 

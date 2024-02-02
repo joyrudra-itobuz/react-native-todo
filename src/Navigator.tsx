@@ -17,6 +17,7 @@ function AuthNavigator() {
     <Auth.Navigator>
       <Auth.Screen name="SignIn" options={commonOptions} component={SignIn} />
       <Auth.Screen name="SignUp" options={commonOptions} component={SignUP} />
+      <Auth.Screen name="app" options={commonOptions} component={BottomTab} />
     </Auth.Navigator>
   );
 }
@@ -38,7 +39,7 @@ export default function Navigator() {
 
   return (
     <NavigationContainer>
-      {hasToken ? <BottomTab /> : <AuthNavigator />}
+      <AuthNavigator />
     </NavigationContainer>
   );
 }

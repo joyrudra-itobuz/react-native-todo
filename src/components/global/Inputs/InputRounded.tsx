@@ -6,7 +6,7 @@ import {useController, useFormContext} from 'react-hook-form';
 import bgStyles from '../../../styles/bgStyles';
 
 type Props = TextInputProps & {
-  label: string;
+  label?: string;
   name: string;
 };
 
@@ -28,23 +28,25 @@ export default function InputRounded({label, name, ...inputProps}: Props) {
         fieldState.error ? bgStyles.borderRed : bgStyles.borderWhite,
       ]}>
       <TextInput
+        style={[styles.input, textStyles.fontInter]}
         {...inputProps}
         {...register(name)}
         ref={inputRef}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onChangeText={value => field.onChange(value)}
-        style={[styles.input, textStyles.fontInter]}
       />
-      <InterText
-        style={[
-          styles.labelDefault,
-          fieldState.error ? textStyles.textRed : textStyles.textGray,
-          isFocused ? styles.labelFocus : styles.labelBlur,
-          text && !isFocused && styles.hidden,
-        ]}>
-        {label}
-      </InterText>
+      {label && (
+        <InterText
+          style={[
+            styles.labelDefault,
+            fieldState.error ? textStyles.textRed : textStyles.textGray,
+            isFocused ? styles.labelFocus : styles.labelBlur,
+            text && !isFocused && styles.hidden,
+          ]}>
+          {label}
+        </InterText>
+      )}
       {fieldState.error?.message && (
         <InterText style={styles.errorText}>
           {fieldState.error.message}

@@ -2,12 +2,11 @@ import {
   Alert,
   Button,
   StyleSheet,
-  Text,
   ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import SoraText from '../../global/text/SoraText';
 import textStyles from '../../../styles/textStyles';
 import layoutStyles from '../../../styles/layoutStyles';
@@ -22,27 +21,37 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useMutation} from '@apollo/client';
 import {SIGN_IN_USER_MUTATION} from '../../../graphql/auth/auth.graphql';
-import {styled} from 'nativewind';
+import {UserContext} from '../../../context/UserContext';
 
 export default function SignInForm() {
-  const StyledView = styled(View);
-  const StyledText = styled(Text);
-
   const form = useForm<SignIn>({
     resolver: yupResolver(signInValidationSchema),
   });
+  const {setProfile} = useContext(UserContext);
+
+  const staticUserData = {
+    email: 'joyrudra@itobuz.com',
+    profileImage:
+      'https://spoon-restaurant-app.s3.ap-south-1.amazonaws.com/profileImage%2F1704886302283_pexels-valeria-boltneva-11213759.jpg',
+    userType: 'owner',
+    name: 'Rahul Kamarkar 2.0',
+    phoneNumber: '9064690593',
+    accessToken:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTc1ZjRlZDk3YzQ5ODg4YjAzOTc3NyIsImlhdCI6MTcwNjg1MjU4NywiZXhwIjoxNzIyNDA0NTg3fQ.-j3rNfAzgdnricszaRQunhp9Q9VMNWTxJlaYKEFPxxY',
+  };
 
   const {navigate} = useNavigation();
 
-  const [loginInput, {}] = useMutation(SIGN_IN_USER_MUTATION, {
+  const [loginInput] = useMutation(SIGN_IN_USER_MUTATION, {
     onCompleted: ({login}: {login: LoginResponse}) => {
       if (login.success) {
-        AsyncStorage.setItem('@accessToken', login.data.accessToken);
+        AsyncStorage.setItem('@accessToken', staticUserData.accessToken);
         AsyncStorage.setItem('@refreshToken', login.data.refreshToken);
 
         Alert.alert('MY APP', 'Welcomes You');
         ToastAndroid.show(login.message ?? '', 300);
-        navigate('Create' as never);
+        navigate('app' as never);
+        setProfile(staticUserData);
       } else {
         ToastAndroid.show(login.message ?? '', 300);
       }
@@ -59,10 +68,6 @@ export default function SignInForm() {
 
   return (
     <FormProvider {...form}>
-      <StyledView className="text-white">
-        <StyledText className="text-3xl text-blue-200">Hello</StyledText>
-      </StyledView>
-
       <View style={layoutStyles.widthFull}>
         <View style={[layoutStyles.flexCenter, spacingStyles.p20]}>
           <SoraText style={[textStyles.text24, textStyles.fontSoraBold]}>
