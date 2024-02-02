@@ -15,18 +15,15 @@ export default function SignInUpLayout({
 
   useFocusEffect(() => {
     async function checkToken() {
-      // return await AsyncStorage.clear();
-
-      const accessToken = await AsyncStorage.getItem('accessToken');
+      const accessToken = await AsyncStorage.getItem('@accessToken');
 
       console.log({accessToken});
 
       if (accessToken) {
-        navigate('Home' as never);
+        navigate('app' as never);
       }
     }
 
-    console.log('unmounts');
     checkToken();
   });
 
