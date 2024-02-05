@@ -4,7 +4,6 @@ import {
   StyleSheet,
   ScrollView,
   TextInput,
-  Animated,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import bgStyles from '../../styles/bgStyles';
@@ -17,11 +16,7 @@ import spacingStyles from '../../styles/spacingStyles';
 import SoraText from '../../components/global/text/SoraText';
 import {staticUserData} from '../../data/static';
 import textStyles from '../../styles/textStyles';
-import {
-  RectButton,
-  Swipeable,
-  gestureHandlerRootHOC,
-} from 'react-native-gesture-handler';
+import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   neonTheme: {backgroundColor: '#D7FC70', color: 'black'},
@@ -87,34 +82,6 @@ const Home = gestureHandlerRootHOC(() => {
     getAllNotes();
   }, []);
 
-  const renderLeftActions = (
-    progress: Animated.AnimatedInterpolation<string | number>,
-    dragX: Animated.AnimatedInterpolation<string | number>,
-  ) => {
-    console.log(typeof dragX, dragX);
-    const trans = dragX.interpolate({
-      inputRange: [0, 50, 100, 101],
-      outputRange: [-20, 0, 0, 1],
-    });
-
-    console.log({trans});
-
-    return (
-      <RectButton>
-        <Animated.Text
-          style={[
-            textStyles.textWhite,
-            {
-              transform: [{translateX: trans}],
-            },
-            spacingStyles.p20,
-          ]}>
-          Archive
-        </Animated.Text>
-      </RectButton>
-    );
-  };
-
   return (
     <RestrictedScreens>
       <SafeAreaView style={[layoutStyles.flex1, bgStyles.bgDark]}>
@@ -145,13 +112,12 @@ const Home = gestureHandlerRootHOC(() => {
               spacingStyles.gap16,
             ]}>
             {allNotes.map((data, index) => (
-              <Swipeable renderLeftActions={renderLeftActions} key={data._id}>
-                <NoteComponent
-                  data={data}
-                  key={data._id}
-                  customStyles={customStyledArray[index % 5]}
-                />
-              </Swipeable>
+              <NoteComponent
+                data={data}
+                key={data._id}
+                customStyles={customStyledArray[index % 5]}
+                allNotes={allNotes}
+              />
             ))}
           </View>
         </ScrollView>

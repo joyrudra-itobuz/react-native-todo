@@ -7,48 +7,138 @@ import layoutStyles from '../../../styles/layoutStyles';
 import textStyles from '../../../styles/textStyles';
 import DeleteLogo from '../../../../assets/images/icons/DeleteLogo';
 import FinishLogo from '../../../../assets/images/icons/FinishLogo';
-import {
-  RectButton,
-  Swipeable,
-  gestureHandlerRootHOC,
-} from 'react-native-gesture-handler';
+import {Swipeable, gestureHandlerRootHOC} from 'react-native-gesture-handler';
+import bgStyles from '../../../styles/bgStyles';
+import {apiCall} from '../../../helper/apiCall';
+import {AxiosError} from 'axios';
 
 const NoteComponent = gestureHandlerRootHOC(
   ({
     data,
     customStyles,
+    allNotes,
   }: Readonly<{
     data: Note;
     customStyles: {backgroundColor: string; color: string};
+    allNotes: Array<Note>;
   }>) => {
+    async function handleDelete() {
+      try {
+        const response = await apiCall<null, null>(
+          `/delete-note?id=${data._id}`,
+          'GET',
+          // null,
+        );
+
+        console.log(response);
+
+        if (!response) {
+          throw new Error('No Response!');
+        }
+
+        if (response.success) {
+          const index = allNotes.findIndex(note => note._id === data._id);
+          allNotes.splice(index, 1);
+        }
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          console.log(error.message);
+        }
+        console.log(error);
+      }
+    }
+
+    const renderLeftActions = (
+      progress: Animated.AnimatedInterpolation<string | number>,
+      dragX: Animated.AnimatedInterpolation<string | number>,
+    ) => {
+      const trans = dragX.interpolate({
+        inputRange: [0, 50, 100, 101],
+        outputRange: [-20, 0, 0, 1],
+      });
+
+      return (
+        <TouchableOpacity
+          onPress={handleDelete}
+          style={[
+            layoutStyles.heightFull,
+            layoutStyles.flexCenter,
+            bgStyles.bgRed,
+            {
+              transform: [{translateX: trans}],
+            },
+          ]}>
+          <Animated.Text style={[textStyles.textWhite, spacingStyles.p20]}>
+            <SoraText>Delete</SoraText>
+          </Animated.Text>
+        </TouchableOpacity>
+      );
+    };
+
+    const renderRightActions = (
+      progress: Animated.AnimatedInterpolation<string | number>,
+      dragX: Animated.AnimatedInterpolation<string | number>,
+    ) => {
+      const trans = dragX.interpolate({
+        inputRange: [-101, -100, -50, 0],
+        outputRange: [-1, 0, 0, -5],
+      });
+
+      return (
+        <TouchableOpacity
+          style={[
+            layoutStyles.heightFull,
+            layoutStyles.flexCenter,
+            bgStyles.bgGreen,
+            {
+              transform: [{translateX: trans}],
+            },
+          ]}>
+          <Animated.Text style={[textStyles.textWhite, spacingStyles.p20]}>
+            <SoraText>Done</SoraText>
+          </Animated.Text>
+        </TouchableOpacity>
+      );
+    };
+
     return (
-      <View
-        style={[
-          styles.container,
-          spacingStyles.p20,
-          layoutStyles.flexCol,
-          spacingStyles.gap16,
-          customStyles,
-        ]}>
+      <Swipeable
+        renderLeftActions={renderLeftActions}
+        renderRightActions={renderRightActions}
+        key={data._id}>
         <View
           style={[
-            layoutStyles.flexRow,
-            spacingStyles.gap8,
-            styles.iconContainer,
+            styles.container,
+            spacingStyles.p20,
+            layoutStyles.flexCol,
+            spacingStyles.gap16,
+            customStyles,
           ]}>
-          <TouchableOpacity>
-            <DeleteLogo />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <FinishLogo />
-          </TouchableOpacity>
+          <View
+            style={[
+              layoutStyles.flexRow,
+              spacingStyles.gap8,
+              styles.iconContainer,
+            ]}>
+            <TouchableOpacity>
+              <DeleteLogo />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <FinishLogo />
+            </TouchableOpacity>
+          </View>
+          <SoraText
+            style={[
+              textStyles.fontSoraBold,
+              textStyles.text24,
+              customStyles,
+              data.isFinished && textStyles.textLineThrough,
+            ]}>
+            {data.title}
+          </SoraText>
+          <SoraText style={[customStyles]}>{data.body}</SoraText>
         </View>
-        <SoraText
-          style={[textStyles.fontSoraBold, textStyles.text24, customStyles]}>
-          {data.title}
-        </SoraText>
-        <SoraText style={[customStyles]}>{data.body}</SoraText>
-      </View>
+      </Swipeable>
     );
   },
 );

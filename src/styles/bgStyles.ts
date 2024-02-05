@@ -4,6 +4,8 @@ export default StyleSheet.create({
   bgDark: {backgroundColor: '#111'},
   bgBlack: {backgroundColor: '#000000'},
   bgNeonGreen: {backgroundColor: '#D7FC70'},
+  bgRed: {backgroundColor: '#fc5858'},
+  bgGreen: {backgroundColor: '#53b865'},
   b1: {
     borderWidth: 1,
   },

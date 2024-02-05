@@ -4,6 +4,9 @@ export default StyleSheet.create({
   textCenter: {
     textAlign: 'center',
   },
+  textLineThrough: {
+    textDecorationLine: 'line-through',
+  },
   textWhite: {
     color: '#ffffff',
   },
