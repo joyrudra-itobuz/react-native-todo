@@ -1,5 +1,11 @@
-import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {
+  Animated,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {Dispatch} from 'react';
 import {Note} from '../../../types/noteTypes';
 import SoraText from '../../global/text/SoraText';
 import spacingStyles from '../../../styles/spacingStyles';
@@ -7,7 +13,11 @@ import layoutStyles from '../../../styles/layoutStyles';
 import textStyles from '../../../styles/textStyles';
 import DeleteLogo from '../../../../assets/images/icons/DeleteLogo';
 import FinishLogo from '../../../../assets/images/icons/FinishLogo';
-import {Swipeable, gestureHandlerRootHOC} from 'react-native-gesture-handler';
+import {
+  ScrollView,
+  Swipeable,
+  gestureHandlerRootHOC,
+} from 'react-native-gesture-handler';
 import bgStyles from '../../../styles/bgStyles';
 import {apiCall} from '../../../helper/apiCall';
 import {AxiosError} from 'axios';
@@ -17,17 +27,20 @@ const NoteComponent = gestureHandlerRootHOC(
     data,
     customStyles,
     allNotes,
+    setAllNotes,
   }: Readonly<{
     data: Note;
     customStyles: {backgroundColor: string; color: string};
     allNotes: Array<Note>;
+    setAllNotes: Dispatch<React.SetStateAction<Note[]>>;
   }>) => {
+    console.log(Platform.OS, Platform.Version, Platform);
+
     async function handleDelete() {
       try {
         const response = await apiCall<null, null>(
-          `/delete-note?id=${data._id}`,
+          `/notes/delete-note?id=${data._id}`,
           'GET',
-          // null,
         );
 
         console.log(response);
@@ -38,7 +51,39 @@ const NoteComponent = gestureHandlerRootHOC(
 
         if (response.success) {
           const index = allNotes.findIndex(note => note._id === data._id);
-          allNotes.splice(index, 1);
+          const copy = [...allNotes];
+          copy.splice(index, 1);
+          setAllNotes(copy);
+        }
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          console.log(error.message);
+        }
+        console.log(error);
+      }
+    }
+
+    async function handleUpdate() {
+      try {
+        const response = await apiCall<
+          Note,
+          {_id: string; isFinished: boolean}
+        >('/notes/add-edit-note', 'POST', {
+          _id: data._id,
+          isFinished: !data.isFinished,
+        });
+
+        console.log(response);
+
+        if (!response) {
+          throw new Error('No Response!');
+        }
+
+        if (response.success) {
+          const index = allNotes.findIndex(note => note._id === data._id);
+          const copy = [...allNotes];
+          copy[index].isFinished = response.data.isFinished;
+          setAllNotes(copy);
         }
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -49,7 +94,7 @@ const NoteComponent = gestureHandlerRootHOC(
     }
 
     const renderLeftActions = (
-      progress: Animated.AnimatedInterpolation<string | number>,
+      _progress: Animated.AnimatedInterpolation<string | number>,
       dragX: Animated.AnimatedInterpolation<string | number>,
     ) => {
       const trans = dragX.interpolate({
@@ -76,7 +121,7 @@ const NoteComponent = gestureHandlerRootHOC(
     };
 
     const renderRightActions = (
-      progress: Animated.AnimatedInterpolation<string | number>,
+      _progress: Animated.AnimatedInterpolation<string | number>,
       dragX: Animated.AnimatedInterpolation<string | number>,
     ) => {
       const trans = dragX.interpolate({
@@ -86,6 +131,7 @@ const NoteComponent = gestureHandlerRootHOC(
 
       return (
         <TouchableOpacity
+          onPress={handleUpdate}
           style={[
             layoutStyles.heightFull,
             layoutStyles.flexCenter,
@@ -106,7 +152,7 @@ const NoteComponent = gestureHandlerRootHOC(
         renderLeftActions={renderLeftActions}
         renderRightActions={renderRightActions}
         key={data._id}>
-        <View
+        <ScrollView
           style={[
             styles.container,
             spacingStyles.p20,
@@ -120,11 +166,11 @@ const NoteComponent = gestureHandlerRootHOC(
               spacingStyles.gap8,
               styles.iconContainer,
             ]}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleDelete}>
               <DeleteLogo />
             </TouchableOpacity>
             <TouchableOpacity>
-              <FinishLogo />
+              <FinishLogo onPress={handleUpdate} />
             </TouchableOpacity>
           </View>
           <SoraText
@@ -137,7 +183,7 @@ const NoteComponent = gestureHandlerRootHOC(
             {data.title}
           </SoraText>
           <SoraText style={[customStyles]}>{data.body}</SoraText>
-        </View>
+        </ScrollView>
       </Swipeable>
     );
   },

@@ -5,7 +5,7 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import bgStyles from '../../styles/bgStyles';
 import layoutStyles from '../../styles/layoutStyles';
 import RestrictedScreens from '../../components/global/Auth/RestrictedScreens';
@@ -17,6 +17,7 @@ import SoraText from '../../components/global/text/SoraText';
 import {staticUserData} from '../../data/static';
 import textStyles from '../../styles/textStyles';
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
+import {useFocusEffect} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   neonTheme: {backgroundColor: '#D7FC70', color: 'black'},
@@ -78,9 +79,11 @@ const Home = gestureHandlerRootHOC(() => {
     setAllNotes(filteredData);
   }
 
-  useEffect(() => {
-    getAllNotes();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getAllNotes();
+    }, []),
+  );
 
   return (
     <RestrictedScreens>
@@ -117,6 +120,7 @@ const Home = gestureHandlerRootHOC(() => {
                 key={data._id}
                 customStyles={customStyledArray[index % 5]}
                 allNotes={allNotes}
+                setAllNotes={setAllNotes}
               />
             ))}
           </View>
