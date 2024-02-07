@@ -47,8 +47,6 @@ export default function CreateForm() {
       data,
     );
 
-    console.log(response);
-
     if (response.success) {
       navigate('Home' as never);
     }
@@ -74,8 +72,6 @@ export default function CreateForm() {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
-
-          console.log('Current Position:', position);
         },
         error => {
           console.error('Error getting current position:', error);

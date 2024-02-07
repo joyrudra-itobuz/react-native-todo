@@ -2,13 +2,9 @@ import {Alert, Permission, PermissionsAndroid, Platform} from 'react-native';
 
 export const handleStoragePermission = async () => {
   try {
-    console.log(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE);
-
     const check = await PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
     );
-
-    console.log(check);
 
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
@@ -20,8 +16,6 @@ export const handleStoragePermission = async () => {
         buttonPositive: 'OK',
       },
     );
-
-    console.log(granted);
 
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('You can use the Storage');
@@ -46,8 +40,6 @@ export const handleLocationPermission = async () => {
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
     );
 
-    console.log(check);
-
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       {
@@ -58,8 +50,6 @@ export const handleLocationPermission = async () => {
         buttonPositive: 'OK',
       },
     );
-
-    console.log(granted);
 
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('You can use the ACCESS_FINE_LOCATION');
@@ -82,8 +72,6 @@ export const handleCameraPermission = async () => {
       PermissionsAndroid.PERMISSIONS.CAMERA,
     );
 
-    console.log(check);
-
     if (check) {
       return;
     }
@@ -98,8 +86,6 @@ export const handleCameraPermission = async () => {
         buttonPositive: 'OK',
       },
     );
-
-    console.log(granted);
 
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('You can use the Camera');
@@ -139,8 +125,6 @@ export const handlePermission = async ({
       buttonNegative: 'Cancel',
       buttonPositive: 'OK',
     });
-
-    console.log(granted);
 
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('You can use the Camera');

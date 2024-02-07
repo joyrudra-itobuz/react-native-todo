@@ -34,16 +34,12 @@ const NoteComponent = gestureHandlerRootHOC(
     allNotes: Array<Note>;
     setAllNotes: Dispatch<React.SetStateAction<Note[]>>;
   }>) => {
-    console.log(Platform.OS, Platform.Version, Platform);
-
     async function handleDelete() {
       try {
         const response = await apiCall<null, null>(
           `/notes/delete-note?id=${data._id}`,
           'GET',
         );
-
-        console.log(response);
 
         if (!response) {
           throw new Error('No Response!');
@@ -72,8 +68,6 @@ const NoteComponent = gestureHandlerRootHOC(
           _id: data._id,
           isFinished: !data.isFinished,
         });
-
-        console.log(response);
 
         if (!response) {
           throw new Error('No Response!');

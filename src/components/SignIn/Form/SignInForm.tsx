@@ -62,7 +62,6 @@ export default function SignInForm() {
   });
 
   function onSubmit(formValues: SignIn) {
-    console.log(formValues);
     loginInput({variables: formValues});
   }
 

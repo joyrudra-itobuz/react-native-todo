@@ -20,7 +20,6 @@ import SearchLogo from '../../../assets/images/icons/SearchLogo';
 import SettingsLogo from '../../../assets/images/icons/SettingsLogo';
 
 function MyTabBar({state, descriptors, navigation}: BottomTabBarProps) {
-  console.log(navigation);
   return (
     <View
       style={{

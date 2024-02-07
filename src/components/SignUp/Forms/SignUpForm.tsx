@@ -27,7 +27,6 @@ export default function SignUpForm() {
   const [registerUser, {loading}] = useMutation(REGISTER_USER_MUTATION, {
     onCompleted: ({register}: {register: ApiResponse}) => {
       if (register.success) {
-        console.log(register);
         navigate('SignIn');
       } else {
         console.log('Error');
@@ -39,11 +38,8 @@ export default function SignUpForm() {
   });
 
   const onSubmit = (formValue: SignUp) => {
-    console.log(formValue);
     registerUser({variables: formValue});
   };
-
-  const onInvalid = e => console.log(e);
 
   return (
     <FormProvider {...form}>
@@ -65,7 +61,7 @@ export default function SignUpForm() {
         <InputRounded label="Password" name="password" />
         <InputRounded label="Confirm Password" name="confirmPassword" />
 
-        <TouchableOpacity onPress={form.handleSubmit(onSubmit, onInvalid)}>
+        <TouchableOpacity onPress={form.handleSubmit(onSubmit)}>
           <RoundedButton>Submit</RoundedButton>
         </TouchableOpacity>
       </View>

@@ -17,8 +17,6 @@ export default function SignInUpLayout({
     async function checkToken() {
       const accessToken = await AsyncStorage.getItem('@accessToken');
 
-      console.log({accessToken});
-
       if (accessToken) {
         navigate('app' as never);
       }
