@@ -18,7 +18,7 @@ export default function SignInUpLayout({
       const accessToken = await AsyncStorage.getItem('@accessToken');
 
       if (accessToken) {
-        navigate('app' as never);
+        navigate('App' as never);
       }
     }
 

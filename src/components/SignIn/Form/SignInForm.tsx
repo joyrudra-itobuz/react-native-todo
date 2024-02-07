@@ -50,7 +50,7 @@ export default function SignInForm() {
 
         Alert.alert('MY APP', 'Welcomes You');
         ToastAndroid.show(login.message ?? '', 300);
-        navigate('app' as never);
+        navigate('App' as never);
         setProfile(staticUserData);
       } else {
         ToastAndroid.show(login.message ?? '', 300);

@@ -1,5 +1,5 @@
 {
   "java.compile.nullAnalysis.mode": "disabled",
-  "cSpell.words": ["nativewind", "Swipeable"],
+  "cSpell.words": ["Homelayout", "nativewind", "Swipeable"],
   "java.configuration.updateBuildConfiguration": "interactive"
 }

@@ -1,10 +1,4 @@
-import {
-  Animated,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {Dispatch} from 'react';
 import {Note} from '../../../types/noteTypes';
 import SoraText from '../../global/text/SoraText';
