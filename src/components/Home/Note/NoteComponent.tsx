@@ -11,6 +11,7 @@ import {ScrollView, Swipeable} from 'react-native-gesture-handler';
 import bgStyles from '../../../styles/bgStyles';
 import {apiCall} from '../../../helper/apiCall';
 import {AxiosError} from 'axios';
+import FavLogo from '../../../../assets/images/icons/FavLogo';
 
 const NoteComponent = ({
   data,
@@ -48,16 +49,18 @@ const NoteComponent = ({
     }
   }
 
-  async function handleUpdate() {
+  async function handleUpdate<T>(
+    body: T,
+    updater: 'isFinished' | 'isImportant',
+  ) {
     try {
-      const response = await apiCall<Note, {_id: string; isFinished: boolean}>(
+      const response = await apiCall<Note, T>(
         '/notes/add-edit-note',
         'POST',
-        {
-          _id: data._id,
-          isFinished: !data.isFinished,
-        },
+        body,
       );
+
+      console.log(response);
 
       if (!response) {
         throw new Error('No Response!');
@@ -66,7 +69,9 @@ const NoteComponent = ({
       if (response.success) {
         const index = allNotes.findIndex(note => note._id === data._id);
         const copy = [...allNotes];
-        copy[index].isFinished = response.data.isFinished;
+        const updatableData = copy[index];
+
+        updatableData[updater] = response.data[updater];
         setAllNotes(copy);
       }
     } catch (error) {
@@ -144,6 +149,7 @@ const NoteComponent = ({
           spacingStyles.gap16,
           customStyles,
         ]}>
+        {data.isFinished && <SoraText style={styles.done}>Done</SoraText>}
         <View
           style={[
             layoutStyles.flexRow,
@@ -154,19 +160,45 @@ const NoteComponent = ({
             <DeleteLogo />
           </TouchableOpacity>
           <TouchableOpacity>
-            <FinishLogo onPress={handleUpdate} />
+            <FinishLogo
+              onPress={() =>
+                handleUpdate<{_id: string; isFinished: boolean}>(
+                  {
+                    _id: data._id,
+                    isFinished: !data.isFinished,
+                  },
+                  'isFinished',
+                )
+              }
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              handleUpdate<{_id: string; isImportant: boolean}>(
+                {
+                  _id: data._id,
+                  isImportant: !data.isImportant,
+                },
+                'isImportant',
+              )
+            }>
+            <FavLogo fillColor={data.isImportant && '#ffff26'} />
           </TouchableOpacity>
         </View>
+
         <SoraText
           style={[
             textStyles.fontSoraBold,
             textStyles.text24,
             customStyles,
-            data.isFinished && textStyles.textLineThrough,
+            data.isFinished && styles.textLineThrough,
           ]}>
           {data.title}
         </SoraText>
-        <SoraText style={[customStyles]}>{data.body}</SoraText>
+        <SoraText
+          style={[customStyles, data.isFinished && styles.textLineThrough]}>
+          {data.body}
+        </SoraText>
       </ScrollView>
     </Swipeable>
   );
@@ -181,9 +213,22 @@ const styles = StyleSheet.create({
     padding: 10,
     position: 'absolute',
     zIndex: 2,
-    bottom: 10,
+    bottom: 0,
     right: 10,
     borderRadius: 20,
+  },
+  done: {
+    position: 'absolute',
+    color: '#000',
+    fontStyle: 'italic',
+    fontWeight: '900',
+    letterSpacing: 20,
+    fontSize: 80,
+    opacity: 0.6,
+  },
+  textLineThrough: {
+    color: '#404040',
+    textDecorationLine: 'line-through',
   },
 });
 

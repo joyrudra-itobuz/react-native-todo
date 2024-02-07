@@ -1,6 +1,9 @@
 import {SvgProps} from 'react-native-svg';
 
-export type CustomSvgProps = SvgProps & {hoverColor?: string | false};
+export type CustomSvgProps = SvgProps & {
+  hoverColor?: string | false;
+  fillColor?: string | false;
+};
 
 export type Profile = {
   username: string;

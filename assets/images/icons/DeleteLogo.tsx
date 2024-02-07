@@ -5,7 +5,7 @@ const DeleteLogo = (props: SvgProps) => (
     {...props}
     xmlns="http://www.w3.org/2000/svg"
     width={25}
-    height={26}
+    height={25}
     fill="none">
     <Path
       stroke="#CE3A54"
