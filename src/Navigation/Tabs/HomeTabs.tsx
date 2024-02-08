@@ -1,32 +1,33 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Completed from '../../screens/Completed/Completed';
 import Important from '../../screens/Important/Important';
 import AllNotes from '../../screens/AllNotes/AllNotes';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 export default function HomeTabs() {
-  const Stack = createNativeStackNavigator();
+  const Tab = createMaterialTopTabNavigator();
+
   const commonOptions = {
     headerShown: false,
   };
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <Tab.Navigator>
+      <Tab.Screen
         name="AllNotes"
-        options={commonOptions}
+        // options={commonOptions}
         component={AllNotes}
       />
-      <Stack.Screen
+      <Tab.Screen
         name="Completed"
-        options={commonOptions}
+        // options={commonOptions}
         component={Completed}
       />
-      <Stack.Screen
+      <Tab.Screen
         name="Important"
-        options={commonOptions}
+        // options={commonOptions}
         component={Important}
       />
-    </Stack.Navigator>
+    </Tab.Navigator>
   );
 }
