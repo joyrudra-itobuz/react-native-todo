@@ -7,27 +7,11 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 export default function HomeTabs() {
   const Tab = createMaterialTopTabNavigator();
 
-  const commonOptions = {
-    headerShown: false,
-  };
-
   return (
     <Tab.Navigator>
-      <Tab.Screen
-        name="AllNotes"
-        // options={commonOptions}
-        component={AllNotes}
-      />
-      <Tab.Screen
-        name="Completed"
-        // options={commonOptions}
-        component={Completed}
-      />
-      <Tab.Screen
-        name="Important"
-        // options={commonOptions}
-        component={Important}
-      />
+      <Tab.Screen name="AllNotes" component={AllNotes} />
+      <Tab.Screen name="Completed" component={Completed} />
+      <Tab.Screen name="Important" component={Important} />
     </Tab.Navigator>
   );
 }
