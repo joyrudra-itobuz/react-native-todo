@@ -6,8 +6,9 @@ import {apiCall} from '../../helper/apiCall';
 import NoteComponent from '../../components/Home/Note/NoteComponent';
 import layoutStyles from '../../styles/layoutStyles';
 import spacingStyles from '../../styles/spacingStyles';
+import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 
-export default function Completed() {
+const Completed = gestureHandlerRootHOC(() => {
   const [completedNotes, setCompletedNotes] = useState<Array<Note>>([]);
 
   async function getCompletedNotes() {
@@ -55,7 +56,9 @@ export default function Completed() {
       </ScrollView>
     </HomeLayout>
   );
-}
+});
+
+export default Completed;
 
 const styles = StyleSheet.create({
   neonTheme: {backgroundColor: '#D7FC70', color: 'black'},

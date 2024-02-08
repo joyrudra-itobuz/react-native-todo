@@ -7,6 +7,7 @@ import NoteComponent from '../../components/Home/Note/NoteComponent';
 import spacingStyles from '../../styles/spacingStyles';
 import {useFocusEffect} from '@react-navigation/native';
 import HomeLayout from '../../components/global/Layouts/HomeLayout';
+import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   neonTheme: {backgroundColor: '#D7FC70', color: 'black'},
@@ -24,7 +25,7 @@ const customStyledArray = [
   {...styles.lavenderTheme},
 ];
 
-export default function AllNotes() {
+const AllNotes = gestureHandlerRootHOC(() => {
   const [allNotes, setAllNotes] = useState<Array<Note>>([]);
 
   async function getAllNotes() {
@@ -70,4 +71,6 @@ export default function AllNotes() {
       </ScrollView>
     </HomeLayout>
   );
-}
+});
+
+export default AllNotes;
