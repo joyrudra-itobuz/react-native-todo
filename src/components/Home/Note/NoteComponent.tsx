@@ -1,4 +1,10 @@
-import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Animated,
+  GestureResponderEvent,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {Dispatch} from 'react';
 import {Note} from '../../../types/noteTypes';
 import SoraText from '../../global/text/SoraText';
@@ -127,7 +133,15 @@ const NoteComponent = gestureHandlerRootHOC(
 
       return (
         <TouchableOpacity
-          onPress={handleUpdate}
+          onPress={() =>
+            handleUpdate<{_id: string; isFinished: boolean}>(
+              {
+                _id: data._id,
+                isFinished: !data.isFinished,
+              },
+              'isFinished',
+            )
+          }
           style={[
             layoutStyles.heightFull,
             layoutStyles.flexCenter,
