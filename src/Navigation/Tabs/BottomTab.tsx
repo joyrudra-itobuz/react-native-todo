@@ -69,7 +69,6 @@ export default function BottomTab() {
         name="Settings"
         component={Settings}
         options={{
-          ...commonOptions,
           // eslint-disable-next-line react/no-unstable-nested-components
           tabBarIcon: info => {
             return <SettingsLogo hoverColor={info.focused && '#6A3EA1'} />;

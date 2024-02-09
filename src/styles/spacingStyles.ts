@@ -23,6 +23,9 @@ export default StyleSheet.create({
   mt20: {
     marginTop: 20,
   },
+  my20: {
+    marginVertical: 20,
+  },
   pt20: {
     paddingTop: 20,
   },
