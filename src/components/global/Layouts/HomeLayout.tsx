@@ -10,7 +10,9 @@ import bgStyles from '../../../styles/bgStyles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation, useRoute} from '@react-navigation/core';
 
-export default function HomeLayout({children}: {children: ReactNode}) {
+export default function HomeLayout({
+  children,
+}: Readonly<{children: ReactNode}>) {
   function handleSearch(e: string) {
     if (!e.length) {
       // getAllNotes();
