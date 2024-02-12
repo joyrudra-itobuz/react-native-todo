@@ -78,6 +78,7 @@
 		DB5FF3485EC14B41BB385702 /* Inter-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Thin.ttf"; path = "../assets/fonts/Inter-Thin.ttf"; sourceTree = "<group>"; };
 		DC5DFE8476A242C893633FCC /* Inter-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.ttf"; path = "../assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		8C9AD547E99A42E78FBA5C16 /* BootSplash.storyboard */ = {isa = PBXFileReference; name = "BootSplash.storyboard"; path = "/Users/joyrudra/dev/Experiments/Jan 2024/ReactNativeToDo/ios/ReactNativeToDo/BootSplash.storyboard"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +127,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				8C9AD547E99A42E78FBA5C16 /* BootSplash.storyboard */,
 			);
 			name = ReactNativeToDo;
 			sourceTree = "<group>";
@@ -320,6 +322,7 @@
 				8659C308FDF54CAA8F39EF99 /* Sora-Regular.ttf in Resources */,
 				DCD63ED8BC3D41D3ACE88E66 /* Sora-SemiBold.ttf in Resources */,
 				5A233A5D0EA5491F9D149901 /* Sora-Thin.ttf in Resources */,
+				ADF96F5D2C3D4A8E91D3D5B8 /* BootSplash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

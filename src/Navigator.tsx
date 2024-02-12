@@ -4,6 +4,8 @@ import SignIn from './screens/SignIn/SignIn';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignUP from './screens/SignUp/SignUp';
 import BottomTab from './Navigation/Tabs/BottomTab';
+import {AnimatedBootSplash} from './screens/BootSplash/AnimatedBootSplash';
+import {Platform, StatusBar} from 'react-native';
 
 function AuthNavigator() {
   const Auth = createNativeStackNavigator();
@@ -21,9 +23,30 @@ function AuthNavigator() {
 }
 
 export default function Navigator() {
+  const [visible, setVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    StatusBar.setBarStyle('dark-content');
+
+    if (Platform.OS === 'android') {
+      StatusBar.setBackgroundColor('transparent');
+      StatusBar.setTranslucent(true);
+    }
+  }, []);
+
   return (
-    <NavigationContainer>
-      <AuthNavigator />
-    </NavigationContainer>
+    <>
+      {visible && (
+        <AnimatedBootSplash
+          onAnimationEnd={() => {
+            setVisible(false);
+          }}
+        />
+      )}
+
+      <NavigationContainer>
+        <AuthNavigator />
+      </NavigationContainer>
+    </>
   );
 }
